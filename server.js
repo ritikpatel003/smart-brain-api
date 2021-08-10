@@ -117,6 +117,6 @@ app.post('/register', (req,res)=>{
         .catch(err => res.status(400).json('unable to register'))
 })
 
-app.listen(3000, ()=>{
-    console.log('App is running.')
+app.listen(process.env.PORT || 3000, ()=>{
+    console.log('App is runnin on port ${process.env.PORT}.')
 })
