@@ -98,5 +98,5 @@ app.post('/register', (req,res)=>{
 })
 
 app.listen(process.env.PORT || 3000, ()=>{
-    console.log(`App is runnin on port ${process.env.PORT}.`);
+    console.log(`App is running on port ${process.env.PORT}.`);
 })
