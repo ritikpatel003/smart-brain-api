@@ -11,8 +11,9 @@ const db = knex({
     }
 });
 
-const app = express();
+db.select('*').from('users');
 
+const app = express();
 app.use(express.json());
 app.use(cors());
 
