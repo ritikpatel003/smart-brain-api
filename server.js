@@ -9,34 +9,13 @@ const db = knex({
       connectionString : process.env.DATABASE_URL,
       ssl: true,
     }
-  });
-  
+});
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-const database = {
-    users:[
-        {
-            id: '123',
-            name: 'Ritik',
-            email: 'ritik@gmail.com',
-            password: 'chicken',
-            entries: 0,
-            joined: new Date()
-        },
-        {
-            id: '124',
-            name: 'Mia',
-            email: 'MiaLovesMe@gmail.com',
-            password: 'bananas',
-            entries: 0,
-            joined: new Date()
-        }
-    ]
-}
 
 app.get('/', (req,res)=>{
     res.send('It is working');
@@ -64,7 +43,7 @@ app.put('/image', (req, res)=>{
     .then(entries => {
         res.json(entries[0]);
     })
-    .catch(err=> res.status(400).json('unabel to get entries'))
+    .catch(err=> res.status(400).json('unable to get entries'))
 })
 
 app.post('/signin', (req, res)=>{
@@ -89,6 +68,9 @@ app.post('/signin', (req, res)=>{
 
 app.post('/register', (req,res)=>{
     const {name, email, password} = req.body;
+    if (!email || !name || !password) {
+        return res.status(400).json('incorrect form submission');
+    }
     const hash = bcrypt.hashSync(password);
         db.transaction(trx => {
             trx.insert({
@@ -102,8 +84,8 @@ app.post('/register', (req,res)=>{
                     .returning('*')
                     .insert({
                         email: loginEmail[0],
-                        joined: new Date(),
-                        name: name
+                        name: name,
+                        joined: new Date()
                     })
                     .then(user => {
                         res.json(user[0]);
