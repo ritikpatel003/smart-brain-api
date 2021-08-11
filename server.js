@@ -6,7 +6,7 @@ import knex from 'knex';
 const db = knex({
     client: 'pg',
     connection: {
-      host : '127.0.0.1',
+      host : 'postgresql-aerodynamic-35442',
       user : 'postgres',
       password : 'Fumo&!0724',
       database : 'smartbrain'
